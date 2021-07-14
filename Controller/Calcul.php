@@ -9,7 +9,7 @@ if (isset($_POST['str'])) {
     
     header('Content-Type: application/json');
     if ($result[0] == 'error') {
-        http_response_code(403);
+        http_response_code(400);
     } else {
         http_response_code(200);
     }

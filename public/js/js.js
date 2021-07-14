@@ -1,10 +1,15 @@
 const input = document.querySelector('[type=text]'),
 form = document.querySelector('form'),
 resultElement = document.querySelector('#result'),
-errorElement = document.querySelector('#error')
+errorElement = document.querySelector('#error'),
+submitButton = document.querySelector('[type=submit')
 
-form.onsubmit = async (e) => {
+form.onsubmit = (e) => submitForm(e)
+
+const submitForm = async (e) => {
     e.preventDefault()
+    // I miss useState
+    submitButton.disabled = true
     const fetchResult = await fetch(
         '../Controller/Calcul.php',
         {
@@ -13,24 +18,23 @@ form.onsubmit = async (e) => {
         }
     )
     const result = fetchResult.json()
+    submitButton.disabled = false
     if (fetchResult.ok) {
         result.then(
             value => {
                 value.forEach(element => {
-                    resultElement.innerText += element + '\n'
+                    resultElement.textContent += element + '\n'
                 })
             }
         )
-        errorElement.textContent = ''
     } else {
         result.then(
             value => {
                 value.forEach(element => {
                     if (element === 'error') {
-                        errorElement.innerText = 'Invalid format.\n'
+                        errorElement.textContent = 'Invalid format.\n'
                         return
                     }
-                    errorElement.textContent += element + '\n'
                 })
             }
         )
