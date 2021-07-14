@@ -31,7 +31,7 @@ class Algo {
     {
         $i = 0;
         while($i < count($arr)) {
-            array_push($this->console($arr[$i].$sep));
+            array_push($this->console, $arr[$i].$sep);
             $i++;
         }
     }
