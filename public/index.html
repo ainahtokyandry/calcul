@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/css.css">
+    <title>Let's calcul</title>
+</head>
+<body>
+    <p>
+        The data you insert should be in a string format and sould not start with '/' or '*'.
+        <br/>
+        Division by 0 is not permitted.
+    </p>
+    <form action="../Controller/Calcul.php" method="POST">
+        <div>
+            <label for="str">Insert data</label>
+            <input type="text" id="str" name="str" autofocus>
+        </div>
+        <input type="submit" value="Send data">
+    </form>
+    <div id="result"></div>
+    <div id="error"></div>
+    <script src="js/js.js"></script>
+</body>
+</html>

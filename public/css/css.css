@@ -1,0 +1,15 @@
+body {
+    background-color: whitesmoke;
+}
+
+form {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+form input, form label {
+    display: block;
+}
+
+#error {
+    color: red;
+}
