@@ -16,7 +16,8 @@ const submitForm = async (e) => {
         '../Controller/Calcul.php',
         {
             body: new FormData(form),
-            method: 'post'
+            method: 'post',
+            headers: {'Content-Type':'application/json'}
         }
     )
     input.value = ''

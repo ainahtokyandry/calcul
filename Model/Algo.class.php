@@ -45,11 +45,11 @@ class Algo {
     }
 
     // This function should not be here XD
-    public function printArray($arr, $sep = ' ')
+    public function printArray($arr, $console, $sep = ' ')
     {
         $i = 0;
         while($i < count($arr)) {
-            array_push($this->console, $arr[$i].$sep);
+            array_push($console, $arr[$i].$sep);
             $i++;
         }
     }
