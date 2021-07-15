@@ -15,11 +15,15 @@ class Algo {
         $this->data = trim($data);
     }
 
+    private function getData()
+    {
+        return $this->data;
+    }
+
     public function showResult()
     {
-        $arr = $this->sData();
-        $arr = $this->pos($arr);
         $this->verifyFormat();
+        $arr = $this->sData();
         if ($this->valid) {
             array_push($this->console, 'Expected result : '.eval("return $this->data;"));
             array_push($this->console, 'Calcul result : '.$this->calcul($arr));
@@ -31,8 +35,12 @@ class Algo {
 
     private function verifyFormat()
     {
-        if (preg_match("#[a-zA-Z]#", $this->data)) {
+        if (preg_match("#[a-zA-Z]|[\+\*]{2,}#", $this->getData()) || in_array($this->getData()[-1], ['+', '-', '/', '*'])) {
             $this->valid = false;
+        }
+
+        if (preg_match("#\s{1,}#", $this->getData())) {
+            $this->setData(preg_replace("#\s{1,}#", '', $this->getData()));
         }
     }
 
@@ -50,18 +58,18 @@ class Algo {
     {
         $i = 0;
         $res = [];
-        if (strlen($this->data) == 0) {
+        if (strlen($this->getData()) == 0) {
             $this->valid = false;
-        } else if ($this->data[0] == '/' || $this->data[0] == '*') {
+        } else if ($this->getData()[0] == '/' || $this->getData()[0] == '*') {
             $this->valid = false;
         }
-        if (gettype($this->data) == 'string' && $this->valid) {
-            while ($i < strlen($this->data)) {
-                if (!in_array($this->data[0], ['+', '-', '*', '/'])) {
-                    if ($i > 0 && $i < strlen($this->data) && is_numeric($this->data[$i-1]) && !in_array($this->data[$i], ['+', '-', '*', '/'])) {
-                        $res[count($res)-1] = $res[count($res)-1].$this->data[$i];
+        if (gettype($this->getData()) == 'string' && $this->valid) {
+            while ($i < strlen($this->getData())) {
+                if (!in_array($this->getData()[0], ['+', '-', '*', '/'])) {
+                    if ($i > 0 && $i < strlen($this->getData()) && is_numeric($this->getData()[$i-1]) && !in_array($this->getData()[$i], ['+', '-', '*', '/'])) {
+                        $res[count($res)-1] = $res[count($res)-1].$this->getData()[$i];
                     } else {
-                        array_push($res, $this->data[$i]);
+                        array_push($res, $this->getData()[$i]);
                     }
                 }
                 $i++;
@@ -107,20 +115,6 @@ class Algo {
         }
         $data = array_values($data);
 
-        return $data;
-    }
-
-    private function pos($data)
-    {
-        foreach($data as $key => $value) {
-            if (in_array($value, ['*', '/']) && in_array($data[$key-1], ['+', '/', '*'])) {
-                $this->valid = false;
-            }
-            if ($value == '+' && $key+1 <= count($data) && in_array($data[$key+1], ['+', '/', '*'])) {
-                $this->valid = false;
-            }
-            $data = array_values($data);
-        }
         return $data;
     }
 

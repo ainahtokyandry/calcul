@@ -5,9 +5,11 @@ errorElement = document.querySelector('#error'),
 submitButton = document.querySelector('[type=submit')
 
 form.onsubmit = (e) => submitForm(e)
+submitButton.onclick = (e) => submitForm(e)
 
 const submitForm = async (e) => {
     e.preventDefault()
+    const inputValue = input.value
     // I miss useState
     submitButton.disabled = true
     const fetchResult = await fetch(
@@ -17,14 +19,18 @@ const submitForm = async (e) => {
             method: 'post'
         }
     )
+    input.value = ''
     const result = fetchResult.json()
     submitButton.disabled = false
+    errorElement.textContent = ''
     if (fetchResult.ok) {
+        resultElement.innerHTML += `Your input : ${inputValue} <br/>`
         result.then(
             value => {
                 value.forEach(element => {
-                    resultElement.textContent += element + '\n'
+                    resultElement.innerHTML += `${element} <br/>`
                 })
+                resultElement.innerHTML += '<br/>'
             }
         )
     } else {
@@ -32,8 +38,7 @@ const submitForm = async (e) => {
             value => {
                 value.forEach(element => {
                     if (element === 'error') {
-                        errorElement.textContent = 'Invalid format.\n'
-                        return
+                        errorElement.innerHTML = 'Invalid format.<br/>'
                     }
                 })
             }

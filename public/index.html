@@ -8,20 +8,25 @@
     <title>Let's calcul</title>
 </head>
 <body>
-    <p>
-        The data you insert should be in a string format and sould not start with / or *.
-        <br/>
-        Division by 0 is not permitted.
-    </p>
-    <form action="../Controller/Calcul.php" method="POST">
+    <main>
+        <p>
+            The data you insert should be in a string format, should not start with / or * and should not end with + or - or * or /.
+            <br/>
+            Division by 0 is not permitted.
+        </p>
         <div>
-            <label for="str">Input data</label>
-            <input type="text" id="str" name="str" autofocus>
+            <div id="result"></div>
+            <div id="error"></div>
         </div>
-        <input type="submit" value="Send">
-    </form>
-    <div id="result"></div>
-    <div id="error"></div>
+        <br/>
+        <form action="../Controller/Calcul.php" method="POST">
+            <div>
+                <label for="str">Input data</label>
+                <input type="text" id="str" name="str" autofocus autocomplete="off" placeholder="e.g. 585+1" />
+            </div>
+            <input type="submit" value="Send">
+        </form>
+    </main>
     <script src="js/js.js"></script>
 </body>
 </html>
